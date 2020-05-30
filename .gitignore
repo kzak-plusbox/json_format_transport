@@ -1,0 +1,9 @@
+# git管理対象外
+# サンプルファイルたち
+files/*_sample.txt
+bk
+logs
+src_problems.txt
+
+# モジュールキャッシュ
+util_module/__pycache__
