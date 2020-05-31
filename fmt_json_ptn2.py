@@ -22,7 +22,7 @@ def create_csv(dict_datas):
             csv_list.append('店名,購入日時,作品名,作者,金額,購入数,レコード作成日時')
 
         for data in dict_datas:
-            csv_list.append('通販本屋MAX,' + data['shopping_datetime'] + ',' + data['name'] + ',' + data['author'] + ',' \
+            csv_list.append('崖っぷち書店 オンライン店,' + data['shopping_datetime'] + ',' + data['name'] + ',' + data['author'] + ',' \
                         + str(data['price']) + ',' + str(data['buy_num']) + ',' + record_create_ts)
 
         with open('.\\files\\z_output_csv\\shopping_data_{0}.csv'.format(file_create_dt), mode='a', encoding='UTF-8') as wf:
@@ -39,16 +39,19 @@ def create_csv(dict_datas):
 
 def main():
     try:
-        h = []
+        data_list = []
         # JSONファイル読み込み
-        for f_path in glob.glob('.\\files\\json_ptn1\\*'):
+        for f_path in glob.glob('.\\files\\json_ptn2\\*'):
             with open(f_path, mode='r', encoding='UTF-8') as f:
-                h.extend(json.load(f))
+                for shopping_info in json.load(f):
+                    for d in shopping_info['items']:
+                        d['shopping_datetime'] = shopping_info['shopping_datetime']
+                        data_list.append(d)
 
-        logger.info("JSON読み込み正常終了。CSVファイルを作成します。")
+        logger.info('JSON読み込み正常終了。CSVファイルを作成します。')
 
         # CSVファイル作成
-        create_csv(h)
+        create_csv(data_list)
 
         return 0
     except:
@@ -57,7 +60,7 @@ def main():
 
 
 if __name__ == "__main__":
-    logger.info('～～ フォーマットパターン1 処理開始 ～～')
+    logger.info('～～ フォーマットパターン2 処理開始 ～～')
     if main() == 0:
         logger.info('～～ 正常終了 ～～')
     else:
