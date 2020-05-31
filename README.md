@@ -8,6 +8,8 @@
 - fmt_json_ptn2.py
   - JSONフォーマットパターン2をCSVに変換、ファイル出力する。
 
+※JSONのフォーマットは「[JSONフォーマット](#jsonフォーマット)」参照。
+
 ## 仕様
 出力するCSVファイル名は「shopping_data_[yyyyMMdd].csv」  
 ※[yyyyMMdd]は現在日。  
@@ -34,6 +36,51 @@ CSVに出力する項目は以下の通り
     -jsonfile.txt   -> フォーマットパターン2のJSONファイル
   -z_output_csv
     -shopping_data_[yyyyMMdd].csv
+```
+
+## JSONフォーマット
+- パターン1
+```
+[
+  {
+    "shopping_id":"S00001",
+    "book_id":"B000001",
+    "name":"本1",
+    "author":"著者太郎",
+    "price": 650,
+    "buy_num": 1,
+    "shopping_datetime":"2020-06-01 00:00:00",
+  },
+            ・
+            ・
+            ・
+]
+```
+---
+
+- パターン2
+```
+[
+  {
+    "shopping_id":"S01_20200601000000",
+    "shopping_datetime":"2020-06-01 00:00:00",
+    "items":[
+      {
+        "book_id":"B000001",
+        "name":"本1",
+        "author":"著者太郎",
+        "price": 1000,
+        "buy_num": 1,
+      },
+           ・
+           ・
+           ・
+    ]
+  },
+          ・
+          ・
+          ・
+]
 ```
 
 ## 注意事項
